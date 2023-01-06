@@ -28,7 +28,7 @@ After compiling an app, you can execute it by running the following, **inside it
 
 For Common Neighbors: 
 ```
-spark-submit --class org.spark.CommonNeighbors --driver-memory 4g \ 
+spark-submit --class org.spark.CommonNeighbors --driver-memory 4g \
 ./target/commonneighbors-0.1.jar <input-file-directory> <number-of-the-top-results-to-be-displayed>
 ```
 For Jaccard Coefficient: 

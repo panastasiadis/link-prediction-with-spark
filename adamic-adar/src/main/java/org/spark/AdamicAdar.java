@@ -17,11 +17,14 @@ public class AdamicAdar {
     public static List<Tuple2<Double, String>> adamicAdar(JavaRDD<String> lines, Integer numOfDisplayedScores) {
 
         //create an RDD of edges containing both (a, b) and (b, a)
-        JavaPairRDD<String, String> edges = lines.mapToPair((s) -> {
-            String[] tokens = SPACE.split(s);
-
-            return new Tuple2<>(tokens[0], tokens[1]);
-
+        //also ignore lines with comments
+        JavaPairRDD<String, String> edges = lines.flatMapToPair(s -> {
+            String[] tokens = s.split(SPACE.pattern());
+            ArrayList<Tuple2<String, String>> arrayList = new ArrayList<>();
+            if (!s.contains("#")) {
+                arrayList.add(new Tuple2<>(tokens[0], tokens[1]));
+            }
+            return arrayList.iterator();
         });
 
         edges.cache();
@@ -121,8 +124,7 @@ public class AdamicAdar {
         SparkConf sparkConf = new SparkConf().setAppName("AdamicAdar").setMaster("local[*]");
         JavaSparkContext sc = new JavaSparkContext(sparkConf);
 
-        //exclude the lines containing comments
-        JavaRDD<String> lines = sc.textFile(args[0]).filter(l -> !l.contains("#"));
+        JavaRDD<String> lines = sc.textFile(args[0]);
 
         //calculate adamic adar scores for every unconnected edge of two nodes with at least one common neighbor
         List<Tuple2<Double, String>> aaScores = adamicAdar(lines, Integer.parseInt(args[1]));

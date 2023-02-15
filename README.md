@@ -1,8 +1,10 @@
 # link-prediction-with-spark
 
-This guide assumes you have an existing installation of Spark and Java OpenJDK on your Linux device.
+This is a Maven project.
 
-TIn order to avoid Java heap errors, spark commands include the option `--driver-memory 4g` to give the Spark driver enough memory.
+This guide assumes you have an existing installation of Spark and Java JDK on your Linux device.
+
+In order to avoid Java heap errors, spark commands include the option `--driver-memory 4g` to give the Spark driver enough memory.
 
 ## Compile
 

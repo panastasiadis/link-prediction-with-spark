@@ -1,4 +1,4 @@
-# link-prediction-with-spark
+# Link Prediction with Spark: Implementing Common Measures for Link Prediction in Graphs using Apache Spark and Maven
 
 This is a Maven project.
 
